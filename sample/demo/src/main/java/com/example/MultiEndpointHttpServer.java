@@ -89,7 +89,7 @@ public class MultiEndpointHttpServer {
 
     static class ProductsHandler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
-            String productKetqua = TruyVanMau.getAllProductsJson();
+            String productKetqua = TruyVanMau.getAllProducts();
             sendResponse(exchange, productKetqua);
         }
     }

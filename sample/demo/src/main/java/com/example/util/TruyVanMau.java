@@ -20,7 +20,7 @@ public class TruyVanMau {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
 
-    public static List<Product> getAllProducts() {
+    public static String getAllProducts() {
         List<Product> productList = new ArrayList<>();
 
         try (Connection conn = getConnection();
@@ -28,43 +28,36 @@ public class TruyVanMau {
                 ResultSet rs = stmt.executeQuery("SELECT * FROM product;")) {
 
             while (rs.next()) {
-                Product product = new Product(
-                        rs.getInt("product_id"),
-                        rs.getString("product_name"),
-                        rs.getString("image"),
-                        rs.getInt("price"),
-                        rs.getInt("old_price"),
-                        rs.getString("color"),
-                        rs.getString("description"),
-                        rs.getString("ram"),
-                        rs.getString("ssd"),
-                        rs.getString("gift"),
-                        rs.getDouble("rating"));
+                int a = rs.getInt("product_id");
+                String b = rs.getString("product_name");
+                String c = rs.getString("image");
+                int d = rs.getInt("price");
+                int oldPrice = rs.getInt("old_price");
+                String color = rs.getString("color");
+                String description = rs.getString("description");
+                String ram = rs.getString("ram");
+                String ssd = rs.getString("ssd");
+                String gift = rs.getString("gift");
+                double rating = rs.getDouble("rating");
+
+                Product product = new Product(a, b, c, d, oldPrice, color, description, ram, ssd, gift, rating);
+
                 productList.add(product);
             }
+
+            Gson gson = new GsonBuilder().setPrettyPrinting().create();
+            String products = gson.toJson(productList);
+            return products;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return productList;
+        return "khong co ket qua";
     }
 
-    public static String getAllProductsJson() {
-        List<Product> products = getAllProducts();
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String productJson = gson.toJson(products);
-
-        return productJson;
-    }
-
-    public static void main(String[] args) {
-        List<Product> products = getAllProducts();
-
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(products);
-
-        System.out.println(json);
-    }
+    // public static void main(String[] args) {
+    //     String products = getAllProducts();
+    //     System.out.println(products);
+    // }
 }
