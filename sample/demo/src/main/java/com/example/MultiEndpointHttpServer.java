@@ -1,55 +1,97 @@
 package com.example;
 
-import com.example.util.Product;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.example.util.TruyVanMau;
+import com.sun.net.httpserver.*;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.List;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
+import java.time.LocalDateTime;
+import java.util.*;
 
 public class MultiEndpointHttpServer {
-    private static final String URL = "jdbc:mysql://localhost:3307/project23";
-    private static final String USER = "root";
-    private static final String PASSWORD = "1234567890";
+    public static void main(String[] args) throws IOException {
+        HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
+        server.createContext("/", new RootHandler());
+        server.createContext("/hello", new HelloHandler());
+        server.createContext("/time", new TimeHandler());
+        server.createContext("/echo", new EchoHandler());
+        server.createContext("/products", new ProductsHandler());
+
+        server.setExecutor(null);
+        server.start();
+        System.out.println("Server đang chạy tại http://localhost:8080/");
     }
 
-    public static void main(String[] args) {
-        List<Product> productList = new ArrayList<>();
-        try (Connection conn = getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM product;")) {
+    static void sendResponse(HttpExchange exchange, String response) throws IOException {
+        byte[] bytes = response.getBytes("UTF-8");
+        exchange.getResponseHeaders().add("Content-Type", "text/plain; charset=UTF-8");
+        exchange.sendResponseHeaders(200, bytes.length);
+        OutputStream os = exchange.getResponseBody();
+        os.write(bytes);
+        os.close();
+    }
 
-            while (rs.next()) {
-                Product product = new Product(
-                        rs.getInt("product_id"),
-                        rs.getString("product_name"),
-                        rs.getString("image"),
-                        rs.getInt("price"),
-                        rs.getInt("old_price"),
-                        rs.getString("color"),
-                        rs.getString("description"),
-                        rs.getString("ram"),
-                        rs.getString("ssd"),
-                        rs.getString("gift"),
-                        rs.getDouble("rating"));
-                productList.add(product);
+    static class RootHandler implements HttpHandler {
+        public void handle(HttpExchange exchange) throws IOException {
+            sendResponse(exchange, "Trang chủ - Server Java");
+        }
+    }
+
+    static class HelloHandler implements HttpHandler {
+        public void handle(HttpExchange exchange) throws IOException {
+            sendResponse(exchange, "Xin chào!");
+        }
+    }
+
+    static class TimeHandler implements HttpHandler {
+        public void handle(HttpExchange exchange) throws IOException {
+            LocalDateTime now = LocalDateTime.now();
+            sendResponse(exchange, "Thời gian hiện tại: " + now.toString());
+        }
+    }
+
+    static class EchoHandler implements HttpHandler {
+        public void handle(HttpExchange exchange) throws IOException {
+            String query = exchange.getRequestURI().getQuery(); // number=5
+            Map<String, String> params = queryToMap(query);
+
+            String response;
+            if (params.containsKey("number")) {
+                try {
+                    int number = Integer.parseInt(params.get("number"));
+                    int result = number + 1;
+                    response = "Kết quả: " + number + " + 1 = " + result;
+                } catch (NumberFormatException e) {
+                    response = "Lỗi: Giá trị không phải số nguyên.";
+                }
+            } else {
+                response = "Vui lòng cung cấp tham số 'number'. Ví dụ: /echo?number=5";
             }
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+            sendResponse(exchange, response);
         }
 
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String json = gson.toJson(productList);
-
-        System.out.println(json);
+        private Map<String, String> queryToMap(String query) {
+            Map<String, String> result = new HashMap<>();
+            if (query == null)
+                return result;
+            for (String param : query.split("&")) {
+                String[] parts = param.split("=");
+                if (parts.length == 2) {
+                    result.put(parts[0], parts[1]);
+                }
+            }
+            return result;
+        }
     }
+
+    static class ProductsHandler implements HttpHandler {
+        public void handle(HttpExchange exchange) throws IOException {
+            String productKetqua = TruyVanMau.getAllProductsJson();
+            sendResponse(exchange, productKetqua);
+        }
+    }
+
 }
