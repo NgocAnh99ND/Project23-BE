@@ -1,4 +1,4 @@
-package com.example;
+package com.sample.dto;
 
 public class DanhMuc {
     private String ma_danh_muc;

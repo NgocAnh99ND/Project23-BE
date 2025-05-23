@@ -1,8 +1,10 @@
-package com.example;
+package com.sample.querry;
 
-import com.example.utils.Convert;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.sample.dto.DanhMuc;
+import com.sample.dto.ProductByCategory;
+import com.sample.utils.Convert;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

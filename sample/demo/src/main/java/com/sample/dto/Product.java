@@ -1,4 +1,4 @@
-package com.example;
+package com.sample.dto;
 
 public class Product {
     private int productId;

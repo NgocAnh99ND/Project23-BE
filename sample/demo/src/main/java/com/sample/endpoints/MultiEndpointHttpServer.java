@@ -1,5 +1,6 @@
-package com.example;
+package com.sample.endpoints;
 
+import com.sample.querry.TruyVanMau;
 import com.sun.net.httpserver.*;
 
 import java.io.IOException;
