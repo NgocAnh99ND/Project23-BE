@@ -120,21 +120,4 @@ public class Product {
     public void setRating(double rating) {
         this.rating = rating;
     }
-
-    @Override
-    public String toString() {
-        return "Product{" +
-                "productId=" + productId +
-                ", productName='" + productName + '\'' +
-                ", image='" + image + '\'' +
-                ", price=" + price +
-                ", oldPrice=" + oldPrice +
-                ", color='" + color + '\'' +
-                ", description='" + description + '\'' +
-                ", ram='" + ram + '\'' +
-                ", ssd='" + ssd + '\'' +
-                ", gift='" + gift + '\'' +
-                ", rating=" + rating +
-                '}';
-    }
 }
