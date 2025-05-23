@@ -1,4 +1,4 @@
-package com.example.util;
+package com.example;
 
 public class ProductByCategory {
     private String ma_san_pham;

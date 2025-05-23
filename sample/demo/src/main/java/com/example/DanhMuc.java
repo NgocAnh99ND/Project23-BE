@@ -1,4 +1,4 @@
-package com.example.util;
+package com.example;
 
 public class DanhMuc {
     private String ma_danh_muc;

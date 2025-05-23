@@ -1,5 +1,6 @@
-package com.example.util;
+package com.example;
 
+import com.example.utils.Convert;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -45,9 +46,7 @@ public class TruyVanMau {
                 productList.add(product);
             }
 
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String products = gson.toJson(productList);
-            return products;
+            return Convert.ObjToString(productList) ;
 
         } catch (SQLException e) {
             e.printStackTrace();

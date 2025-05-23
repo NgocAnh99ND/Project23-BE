@@ -1,6 +1,5 @@
 package com.example;
 
-import com.example.util.TruyVanMau;
 import com.sun.net.httpserver.*;
 
 import java.io.IOException;

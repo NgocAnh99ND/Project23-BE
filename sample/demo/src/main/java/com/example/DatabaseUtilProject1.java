@@ -1,5 +1,6 @@
-package com.example.util;
+package com.example;
 
+import com.example.utils.Convert;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -67,10 +68,7 @@ public class DatabaseUtilProject1 {
                 }
             }
 
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            String productByCategorys = gson.toJson(productByCategoryList);
-            return productByCategorys;
-
+            return Convert.ObjToString(productByCategoryList);
         } catch (SQLException e) {
             e.printStackTrace();
         }
