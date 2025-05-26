@@ -1,6 +1,7 @@
 package com.sample.endpoints;
 
 import com.sample.querry.ProductQuery;
+import com.sample.utils.Convert;
 import com.sun.net.httpserver.*;
 
 import java.io.IOException;
@@ -24,36 +25,72 @@ public class MultiEndpointHttpServer {
         System.out.println("Server đang chạy tại http://localhost:8080/");
     }
 
-    static void sendResponse(HttpExchange exchange, String response) throws IOException {
+    // Tiện ích: thêm header CORS vào response
+    static void applyCORS(HttpExchange exchange) {
+        Headers headers = exchange.getResponseHeaders();
+        headers.add("Access-Control-Allow-Origin", "*");
+        headers.add("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+        headers.add("Access-Control-Allow-Headers", "Content-Type");
+    }
+
+    // Hàm gửi phản hồi với Content-Type chỉ định
+    static void sendResponse(HttpExchange exchange, String response, String contentType) throws IOException {
+        applyCORS(exchange);
+
         byte[] bytes = response.getBytes("UTF-8");
-        exchange.getResponseHeaders().add("Content-Type", "text/plain; charset=UTF-8");
+
+        Headers headers = exchange.getResponseHeaders();
+        headers.set("Content-Type", contentType + "; charset=UTF-8"); // đảm bảo override đúng
+        String abc = Convert.ObjToString(headers);
+        System.out.println(abc);
         exchange.sendResponseHeaders(200, bytes.length);
-        OutputStream os = exchange.getResponseBody();
-        os.write(bytes);
-        os.close();
+        try (OutputStream os = exchange.getResponseBody()) {
+            os.write(bytes);
+        }
     }
 
     static class RootHandler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
-            sendResponse(exchange, "Trang chủ - Server Java");
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                applyCORS(exchange);
+                exchange.sendResponseHeaders(204, -1);
+                return;
+            }
+            sendResponse(exchange, "Trang chủ - Server Java", "text/plain");
         }
     }
 
     static class HelloHandler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
-            sendResponse(exchange, "Xin chào!");
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                applyCORS(exchange);
+                exchange.sendResponseHeaders(204, -1);
+                return;
+            }
+            sendResponse(exchange, "Xin chào!", "text/plain");
         }
     }
 
     static class TimeHandler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                applyCORS(exchange);
+                exchange.sendResponseHeaders(204, -1);
+                return;
+            }
             LocalDateTime now = LocalDateTime.now();
-            sendResponse(exchange, "Thời gian hiện tại: " + now.toString());
+            sendResponse(exchange, "Thời gian hiện tại: " + now.toString(), "text/plain");
         }
     }
 
     static class EchoHandler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                applyCORS(exchange);
+                exchange.sendResponseHeaders(204, -1);
+                return;
+            }
+
             String query = exchange.getRequestURI().getQuery(); // number=5
             Map<String, String> params = queryToMap(query);
 
@@ -70,7 +107,7 @@ public class MultiEndpointHttpServer {
                 response = "Vui lòng cung cấp tham số 'number'. Ví dụ: /echo?number=5";
             }
 
-            sendResponse(exchange, response);
+            sendResponse(exchange, response, "text/plain");
         }
 
         private Map<String, String> queryToMap(String query) {
@@ -89,8 +126,15 @@ public class MultiEndpointHttpServer {
 
     static class ProductsHandler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                applyCORS(exchange);
+                exchange.sendResponseHeaders(204, -1);
+                return;
+            }
+
             String productKetqua = ProductQuery.getAllProducts();
-            sendResponse(exchange, productKetqua);
+            System.out.println("Nội dung JSON trả về:\n" + productKetqua);
+            sendResponse(exchange, productKetqua, "application/json");
         }
     }
 
