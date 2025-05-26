@@ -1,6 +1,6 @@
 package com.sample.endpoints;
 
-import com.sample.querry.TruyVanMau;
+import com.sample.querry.ProductQuery;
 import com.sun.net.httpserver.*;
 
 import java.io.IOException;
@@ -89,7 +89,7 @@ public class MultiEndpointHttpServer {
 
     static class ProductsHandler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
-            String productKetqua = TruyVanMau.getAllProducts();
+            String productKetqua = ProductQuery.getAllProducts();
             sendResponse(exchange, productKetqua);
         }
     }
