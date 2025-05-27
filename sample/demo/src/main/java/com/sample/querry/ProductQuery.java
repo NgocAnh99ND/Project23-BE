@@ -47,12 +47,13 @@ public class ProductQuery {
                 String gift = rs.getString("gift");
                 double rating = rs.getDouble("rating");
 
-                Product product = new Product(product_id, product_name, image, price, oldPrice, color, description, ram, ssd, gift, rating);
+                Product product = new Product(product_id, product_name, image, price, oldPrice, color, description, ram,
+                        ssd, gift, rating);
 
                 productList.add(product);
             }
 
-            return Convert.ObjToString(productList) ;
+            return Convert.ObjToString(productList);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -120,10 +121,9 @@ public class ProductQuery {
 
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(
-                    "SELECT * " +
-                    "FROM product " +
-                    "ORDER BY price ASC"
-                )){
+                        "SELECT * " +
+                                "FROM product " +
+                                "ORDER BY price ASC")) {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -139,7 +139,8 @@ public class ProductQuery {
                     String gift = rs.getString("gift");
                     double rating = rs.getDouble("rating");
 
-                    ProductByPriceAsc productByPriceAsc = new ProductByPriceAsc(product_id, product_name, image, price, oldPrice, color, description, ram, ssd, gift, rating);
+                    ProductByPriceAsc productByPriceAsc = new ProductByPriceAsc(product_id, product_name, image, price,
+                            oldPrice, color, description, ram, ssd, gift, rating);
                     getProductsSortedByPriceAscList.add(productByPriceAsc);
                 }
             }
@@ -157,10 +158,9 @@ public class ProductQuery {
 
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(
-                    "SELECT * " +
-                    "FROM product " +
-                    "ORDER BY price DESC"
-                )){
+                        "SELECT * " +
+                                "FROM product " +
+                                "ORDER BY price DESC")) {
 
             try (ResultSet rs = pstmt.executeQuery()) {
                 while (rs.next()) {
@@ -176,7 +176,8 @@ public class ProductQuery {
                     String gift = rs.getString("gift");
                     double rating = rs.getDouble("rating");
 
-                    ProductByPriceDesc productByPriceDesc = new ProductByPriceDesc(product_id, product_name, image, price, oldPrice, color, description, ram, ssd, gift, rating);
+                    ProductByPriceDesc productByPriceDesc = new ProductByPriceDesc(product_id, product_name, image,
+                            price, oldPrice, color, description, ram, ssd, gift, rating);
                     getProductsSortedByPriceDescList.add(productByPriceDesc);
                 }
             }
@@ -189,9 +190,79 @@ public class ProductQuery {
         return "khong co ket qua";
     }
 
-    public static void main(String[] args) {
-        ProductQuery productQuery = new ProductQuery();
-        String productCategory = productQuery.getProductsSortedByPriceDesc();
-        System.out.println(productCategory);
+    public static String getProductsFromId1To23() {
+        List<Product> productList = new ArrayList<>();
+
+        try (Connection conn = getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM product ORDER BY product_id ASC LIMIT 23 OFFSET 0;"))
+ {
+
+            while (rs.next()) {
+                int product_id = rs.getInt("product_id");
+                String product_name = rs.getString("product_name");
+                String image = rs.getString("image");
+                int price = rs.getInt("price");
+                int oldPrice = rs.getInt("old_price");
+                String color = rs.getString("color");
+                String description = rs.getString("description");
+                String ram = rs.getString("ram");
+                String ssd = rs.getString("ssd");
+                String gift = rs.getString("gift");
+                double rating = rs.getDouble("rating");
+
+                Product product = new Product(product_id, product_name, image, price, oldPrice, color, description, ram, ssd, gift, rating);
+
+                productList.add(product);
+            }
+
+            return Convert.ObjToString(productList) ;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return "khong co ket qua";
     }
+
+    public static String getProductsFromId24To37() {
+        List<Product> productList = new ArrayList<>();
+
+        try (Connection conn = getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery("SELECT * FROM product WHERE product_id BETWEEN 24 AND 37 ORDER BY product_id ASC"))
+ {
+
+            while (rs.next()) {
+                int product_id = rs.getInt("product_id");
+                String product_name = rs.getString("product_name");
+                String image = rs.getString("image");
+                int price = rs.getInt("price");
+                int oldPrice = rs.getInt("old_price");
+                String color = rs.getString("color");
+                String description = rs.getString("description");
+                String ram = rs.getString("ram");
+                String ssd = rs.getString("ssd");
+                String gift = rs.getString("gift");
+                double rating = rs.getDouble("rating");
+
+                Product product = new Product(product_id, product_name, image, price, oldPrice, color, description, ram, ssd, gift, rating);
+
+                productList.add(product);
+            }
+
+            return Convert.ObjToString(productList) ;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return "khong co ket qua";
+    }
+
+    // public static void main(String[] args) {
+    //     ProductQuery productQuery = new ProductQuery();
+    //     String productCategory = productQuery.getProductsFromId24To37();
+    //     System.out.println(productCategory);
+    // }
 }

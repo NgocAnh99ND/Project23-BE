@@ -18,7 +18,8 @@ public class MultiEndpointHttpServer {
         server.createContext("/hello", new HelloHandler());
         server.createContext("/time", new TimeHandler());
         server.createContext("/echo", new EchoHandler());
-        server.createContext("/products", new ProductsHandler());
+        server.createContext("/products1to23", new ProductsFromId1To23Handler());
+        server.createContext("/products24to37", new ProductsFromId24To37Handler());
 
         server.setExecutor(null);
         server.start();
@@ -124,7 +125,7 @@ public class MultiEndpointHttpServer {
         }
     }
 
-    static class ProductsHandler implements HttpHandler {
+    static class ProductsFromId1To23Handler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
             if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
                 applyCORS(exchange);
@@ -132,7 +133,21 @@ public class MultiEndpointHttpServer {
                 return;
             }
 
-            String productKetqua = ProductQuery.getAllProducts();
+            String productKetqua = ProductQuery.getProductsFromId1To23();
+            System.out.println("Nội dung JSON trả về:\n" + productKetqua);
+            sendResponse(exchange, productKetqua, "application/json");
+        }
+    }
+
+    static class ProductsFromId24To37Handler implements HttpHandler {
+        public void handle(HttpExchange exchange) throws IOException {
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                applyCORS(exchange);
+                exchange.sendResponseHeaders(204, -1);
+                return;
+            }
+
+            String productKetqua = ProductQuery.getProductsFromId24To37();
             System.out.println("Nội dung JSON trả về:\n" + productKetqua);
             sendResponse(exchange, productKetqua, "application/json");
         }
