@@ -195,8 +195,7 @@ public class ProductQuery {
 
         try (Connection conn = getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM product ORDER BY product_id ASC LIMIT 23 OFFSET 0;"))
- {
+                ResultSet rs = stmt.executeQuery("SELECT * FROM product ORDER BY product_id ASC LIMIT 23 OFFSET 0;")) {
 
             while (rs.next()) {
                 int product_id = rs.getInt("product_id");
@@ -211,12 +210,13 @@ public class ProductQuery {
                 String gift = rs.getString("gift");
                 double rating = rs.getDouble("rating");
 
-                Product product = new Product(product_id, product_name, image, price, oldPrice, color, description, ram, ssd, gift, rating);
+                Product product = new Product(product_id, product_name, image, price, oldPrice, color, description, ram,
+                        ssd, gift, rating);
 
                 productList.add(product);
             }
 
-            return Convert.ObjToString(productList) ;
+            return Convert.ObjToString(productList);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -230,8 +230,8 @@ public class ProductQuery {
 
         try (Connection conn = getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM product WHERE product_id BETWEEN 24 AND 37 ORDER BY product_id ASC"))
- {
+                ResultSet rs = stmt.executeQuery(
+                        "SELECT * FROM product WHERE product_id BETWEEN 24 AND 37 ORDER BY product_id ASC")) {
 
             while (rs.next()) {
                 int product_id = rs.getInt("product_id");
@@ -246,12 +246,13 @@ public class ProductQuery {
                 String gift = rs.getString("gift");
                 double rating = rs.getDouble("rating");
 
-                Product product = new Product(product_id, product_name, image, price, oldPrice, color, description, ram, ssd, gift, rating);
+                Product product = new Product(product_id, product_name, image, price, oldPrice, color, description, ram,
+                        ssd, gift, rating);
 
                 productList.add(product);
             }
 
-            return Convert.ObjToString(productList) ;
+            return Convert.ObjToString(productList);
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -259,10 +260,4 @@ public class ProductQuery {
 
         return "khong co ket qua";
     }
-
-    // public static void main(String[] args) {
-    //     ProductQuery productQuery = new ProductQuery();
-    //     String productCategory = productQuery.getProductsFromId24To37();
-    //     System.out.println(productCategory);
-    // }
 }
