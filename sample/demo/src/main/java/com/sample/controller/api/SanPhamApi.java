@@ -30,7 +30,7 @@ public class SanPhamApi {
                 return;
             }
 
-            List<SanPhamDTO> products = repository.getAll();
+            List<SanPhamDTO> products = repository.getAllProducts();
             String products_json = Convert.ObjToString(products);
 
             HttpUtils.sendResponse(exchange, products_json, "application/json");

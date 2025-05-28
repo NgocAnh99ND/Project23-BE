@@ -8,16 +8,11 @@ import com.sample.dto.SanPhamDTO;
 
 public class SanPhamRepository {
 
-    private static final String URL = "jdbc:mysql://localhost:3306/project1";
-    private static final String USER = "root";
-    private static final String PASSWORD = "24tuan02tuan1995";
-
-    public List<SanPhamDTO> getAll() {
+    public List<SanPhamDTO> getAllProducts() {
         List<SanPhamDTO> sanPhamList = new ArrayList<>();
+        String sql = "SELECT * FROM san_pham";
 
-        String sql = "SELECT ma_san_pham, ten_san_pham, don_vi_tinh, ma_danh_muc FROM san_pham";
-
-        try (Connection connection = DriverManager.getConnection(URL, USER, PASSWORD);
+        try (Connection connection = DatabaseConnection.getConnection();
                 PreparedStatement stmt = connection.prepareStatement(sql);
                 ResultSet rs = stmt.executeQuery()) {
 
