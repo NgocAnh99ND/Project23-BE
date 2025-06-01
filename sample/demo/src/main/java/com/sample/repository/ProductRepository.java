@@ -1,4 +1,4 @@
-package com.sample.querry;
+package com.sample.repository;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -18,7 +18,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductQuery {
+public class ProductRepository {
     private static final String URL = "jdbc:mysql://localhost:3307/project23";
     private static final String USER = "root";
     private static final String PASSWORD = "1234567890";

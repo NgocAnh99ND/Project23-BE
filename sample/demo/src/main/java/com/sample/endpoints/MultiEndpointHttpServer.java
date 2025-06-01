@@ -1,6 +1,6 @@
 package com.sample.endpoints;
 
-import com.sample.querry.ProductQuery;
+import com.sample.repository.ProductRepository;
 import com.sun.net.httpserver.*;
 
 import java.io.IOException;
@@ -61,7 +61,7 @@ public class MultiEndpointHttpServer {
                 return;
             }
 
-            String productKetqua = ProductQuery.getProductsFromId1To23();
+            String productKetqua = ProductRepository.getProductsFromId1To23();
             sendResponse(exchange, productKetqua, "application/json");
         }
     }
@@ -74,7 +74,7 @@ public class MultiEndpointHttpServer {
                 return;
             }
 
-            String productKetqua = ProductQuery.getProductsFromId24To37();
+            String productKetqua = ProductRepository.getProductsFromId24To37();
             sendResponse(exchange, productKetqua, "application/json");
         }
     }
