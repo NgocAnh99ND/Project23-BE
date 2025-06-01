@@ -1,4 +1,4 @@
-package com.sample.endpoints;
+package com.sample.controller;
 
 import com.sample.repository.ProductRepository;
 import com.sun.net.httpserver.*;
@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
-public class MultiEndpointHttpServer {
+public class ProductController {
     public static void main(String[] args) throws IOException {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 
