@@ -1,10 +1,13 @@
 package com.sample.api;
 
 import com.sample.repository.ProductRepository;
+import com.sample.util.Convert;
+import com.sample.util.Param;
 import com.sun.net.httpserver.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.List;
 
 public class ProductApi {
 
@@ -43,13 +46,28 @@ public class ProductApi {
 
     static class ProductsByRangeHandler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
+            String query = exchange.getRequestURI().getQuery();
+
             if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
                 applyCORS(exchange);
                 exchange.sendResponseHeaders(204, -1);
                 return;
             }
 
-            String productKetqua = ProductRepository.getProductsByRange("10", "0");
+            // Parse query string thành danh sách key-value
+            List<Param> params = Convert.parseQueryParams(query);
+            String limit = null;
+            String offset = null;
+
+            for (Param p : params) {
+                if ("limit".equalsIgnoreCase(p.key)) {
+                    limit = p.value;
+                } else if ("offset".equalsIgnoreCase(p.key)) {
+                    offset = p.value;
+                }
+            }
+
+            String productKetqua = ProductRepository.getProductsByRange(limit, offset);
             sendResponse(exchange, productKetqua, "application/json");
         }
     }

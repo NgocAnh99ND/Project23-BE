@@ -12,7 +12,7 @@ public class ApiServer {
         HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
 
         server.createContext("/", new RootHandler());
-        server.createContext("/products1to23", new ProductsByRangeHandler());
+        server.createContext("/products", new ProductsByRangeHandler());
 
         server.setExecutor(null);
         server.start();
