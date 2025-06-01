@@ -5,20 +5,7 @@ import com.sun.net.httpserver.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.net.InetSocketAddress;
-
-public class ProductController {
-    public static void main(String[] args) throws IOException {
-        HttpServer server = HttpServer.create(new InetSocketAddress(8080), 0);
-
-        server.createContext("/", new RootHandler());
-        server.createContext("/products1to23", new ProductsFromId1To23Handler());
-        server.createContext("/products24to37", new ProductsFromId24To37Handler());
-
-        server.setExecutor(null);
-        server.start();
-        System.out.println("Server đang chạy tại http://localhost:8080/");
-    }
+public class ProductApi {
 
     // Tiện ích: thêm header CORS vào response
     static void applyCORS(HttpExchange exchange) {
