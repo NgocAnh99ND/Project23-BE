@@ -1,4 +1,4 @@
-package com.sample.controller;
+package com.sample.api;
 
 import com.sample.repository.ProductRepository;
 import com.sun.net.httpserver.*;
