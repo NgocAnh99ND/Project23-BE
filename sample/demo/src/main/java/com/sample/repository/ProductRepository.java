@@ -4,9 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.sample.model.dto.DanhMucDTO;
 import com.sample.model.dto.ProductDTO;
+import com.sample.util.Convert;
+import com.sample.util.DatabaseConnection;
 import com.sample.model.dto.ProductByCategoryDTO;
 import com.sample.model.dto.ProductByPriceDetailDTO;
-import com.sample.utils.Convert;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -18,18 +19,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductRepository {
-    private static final String URL = "jdbc:mysql://localhost:3307/project23";
-    private static final String USER = "root";
-    private static final String PASSWORD = "1234567890";
-
-    public static Connection getConnection() throws SQLException {
-        return DriverManager.getConnection(URL, USER, PASSWORD);
-    }
-
     public static String getAllProducts() {
         List<ProductDTO> productList = new ArrayList<>();
 
-        try (Connection conn = getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM product;")) {
 
@@ -64,7 +57,7 @@ public class ProductRepository {
     public static String getAllCategory() {
         List<DanhMucDTO> categoryList = new ArrayList<>();
 
-        try (Connection conn = getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery("SELECT * FROM danh_muc;")) {
 
@@ -91,7 +84,7 @@ public class ProductRepository {
     public String getProductByCategory() {
         List<ProductByCategoryDTO> productByCategoryList = new ArrayList<>();
 
-        try (Connection conn = getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(
                         "SELECT ma_san_pham, ten_san_pham FROM san_pham WHERE ma_danh_muc = ?")) {
 
@@ -118,7 +111,7 @@ public class ProductRepository {
     public String getProductsSortedByPriceAsc() {
         List<ProductByPriceDetailDTO> getProductsSortedByPriceAscList = new ArrayList<>();
 
-        try (Connection conn = getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(
                         "SELECT * " +
                                 "FROM product " +
@@ -155,7 +148,7 @@ public class ProductRepository {
     public String getProductsSortedByPriceDesc() {
         List<ProductByPriceDetailDTO> getProductsSortedByPriceDescList = new ArrayList<>();
 
-        try (Connection conn = getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(
                         "SELECT * " +
                                 "FROM product " +
@@ -194,7 +187,7 @@ public class ProductRepository {
 
         String sql = "SELECT * FROM product ORDER BY product_id ASC LIMIT 23 OFFSET 0";
 
-        try (Connection conn = getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
 
@@ -231,7 +224,7 @@ public class ProductRepository {
 
          String sql = "\"SELECT * FROM product WHERE product_id BETWEEN 24 AND 37 ORDER BY product_id ASC";
 
-        try (Connection conn = getConnection();
+        try (Connection conn = DatabaseConnection.getConnection();
                 Statement stmt = conn.createStatement();
                 ResultSet rs = stmt.executeQuery(sql)) {
 
