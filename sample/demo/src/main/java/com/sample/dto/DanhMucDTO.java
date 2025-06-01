@@ -1,4 +1,4 @@
-package com.sample.model.dto;
+package com.sample.dto;
 
 public class DanhMucDTO {
     private String ma_danh_muc;

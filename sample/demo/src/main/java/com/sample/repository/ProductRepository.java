@@ -2,15 +2,14 @@ package com.sample.repository;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sample.model.dto.DanhMucDTO;
-import com.sample.model.dto.ProductDTO;
+import com.sample.dto.DanhMucDTO;
+import com.sample.dto.ProductByCategoryDTO;
+import com.sample.dto.ProductByPriceDetailDTO;
+import com.sample.dto.ProductDTO;
 import com.sample.util.Convert;
 import com.sample.util.DatabaseConnection;
-import com.sample.model.dto.ProductByCategoryDTO;
-import com.sample.model.dto.ProductByPriceDetailDTO;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
