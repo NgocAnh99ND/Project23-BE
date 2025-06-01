@@ -1,10 +1,10 @@
 package com.sample.model.dto;
 
-public class DanhMuc {
+public class DanhMucDTO {
     private String ma_danh_muc;
     private String ten_danh_muc;
 
-    public DanhMuc(String ma_danh_muc, String ten_danh_muc) {
+    public DanhMucDTO(String ma_danh_muc, String ten_danh_muc) {
         this.ma_danh_muc = ma_danh_muc;
         this.ten_danh_muc= ten_danh_muc;
     }

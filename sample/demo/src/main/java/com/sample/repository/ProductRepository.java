@@ -2,11 +2,11 @@ package com.sample.repository;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sample.model.dto.DanhMuc;
-import com.sample.model.dto.Product;
-import com.sample.model.dto.ProductByCategory;
-import com.sample.model.dto.ProductByPriceAsc;
-import com.sample.model.dto.ProductByPriceDesc;
+import com.sample.model.dto.DanhMucDTO;
+import com.sample.model.dto.ProductDTO;
+import com.sample.model.dto.ProductByCategoryDTO;
+import com.sample.model.dto.ProductByPriceAscDTO;
+import com.sample.model.dto.ProductByPriceDescDTO;
 import com.sample.utils.Convert;
 
 import java.sql.Connection;
@@ -28,7 +28,7 @@ public class ProductRepository {
     }
 
     public static String getAllProducts() {
-        List<Product> productList = new ArrayList<>();
+        List<ProductDTO> productList = new ArrayList<>();
 
         try (Connection conn = getConnection();
                 Statement stmt = conn.createStatement();
@@ -47,7 +47,7 @@ public class ProductRepository {
                 String gift = rs.getString("gift");
                 double rating = rs.getDouble("rating");
 
-                Product product = new Product(product_id, product_name, image, price, oldPrice, color, description, ram,
+                ProductDTO product = new ProductDTO(product_id, product_name, image, price, oldPrice, color, description, ram,
                         ssd, gift, rating);
 
                 productList.add(product);
@@ -63,7 +63,7 @@ public class ProductRepository {
     }
 
     public static String getAllCategory() {
-        List<DanhMuc> categoryList = new ArrayList<>();
+        List<DanhMucDTO> categoryList = new ArrayList<>();
 
         try (Connection conn = getConnection();
                 Statement stmt = conn.createStatement();
@@ -73,7 +73,7 @@ public class ProductRepository {
                 String b = rs.getString("ma_danh_muc");
                 String c = rs.getString("ten_danh_muc");
 
-                DanhMuc category = new DanhMuc(b, c);
+                DanhMucDTO category = new DanhMucDTO(b, c);
 
                 categoryList.add(category);
             }
@@ -90,7 +90,7 @@ public class ProductRepository {
     }
 
     public String getProductByCategory() {
-        List<ProductByCategory> productByCategoryList = new ArrayList<>();
+        List<ProductByCategoryDTO> productByCategoryList = new ArrayList<>();
 
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(
@@ -103,7 +103,7 @@ public class ProductRepository {
                     String maSanPham = rs.getString("ma_san_pham");
                     String tenSanPham = rs.getString("ma_san_pham");
 
-                    ProductByCategory productByCategory = new ProductByCategory(maSanPham, tenSanPham);
+                    ProductByCategoryDTO productByCategory = new ProductByCategoryDTO(maSanPham, tenSanPham);
                     productByCategoryList.add(productByCategory);
                 }
             }
@@ -117,7 +117,7 @@ public class ProductRepository {
     }
 
     public String getProductsSortedByPriceAsc() {
-        List<ProductByPriceAsc> getProductsSortedByPriceAscList = new ArrayList<>();
+        List<ProductByPriceAscDTO> getProductsSortedByPriceAscList = new ArrayList<>();
 
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(
@@ -139,7 +139,7 @@ public class ProductRepository {
                     String gift = rs.getString("gift");
                     double rating = rs.getDouble("rating");
 
-                    ProductByPriceAsc productByPriceAsc = new ProductByPriceAsc(product_id, product_name, image, price,
+                    ProductByPriceAscDTO productByPriceAsc = new ProductByPriceAscDTO(product_id, product_name, image, price,
                             oldPrice, color, description, ram, ssd, gift, rating);
                     getProductsSortedByPriceAscList.add(productByPriceAsc);
                 }
@@ -154,7 +154,7 @@ public class ProductRepository {
     }
 
     public String getProductsSortedByPriceDesc() {
-        List<ProductByPriceDesc> getProductsSortedByPriceDescList = new ArrayList<>();
+        List<ProductByPriceDescDTO> getProductsSortedByPriceDescList = new ArrayList<>();
 
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(
@@ -176,7 +176,7 @@ public class ProductRepository {
                     String gift = rs.getString("gift");
                     double rating = rs.getDouble("rating");
 
-                    ProductByPriceDesc productByPriceDesc = new ProductByPriceDesc(product_id, product_name, image,
+                    ProductByPriceDescDTO productByPriceDesc = new ProductByPriceDescDTO(product_id, product_name, image,
                             price, oldPrice, color, description, ram, ssd, gift, rating);
                     getProductsSortedByPriceDescList.add(productByPriceDesc);
                 }
@@ -191,7 +191,7 @@ public class ProductRepository {
     }
 
     public static String getProductsFromId1To23() {
-        List<Product> productList = new ArrayList<>();
+        List<ProductDTO> productList = new ArrayList<>();
 
         String sql = "SELECT * FROM product ORDER BY product_id ASC LIMIT 23 OFFSET 0";
 
@@ -212,7 +212,7 @@ public class ProductRepository {
                 String gift = rs.getString("gift");
                 double rating = rs.getDouble("rating");
 
-                Product product = new Product(product_id, product_name, image, price, oldPrice, color, description, ram,
+                ProductDTO product = new ProductDTO(product_id, product_name, image, price, oldPrice, color, description, ram,
                         ssd, gift, rating);
 
                 productList.add(product);
@@ -228,7 +228,7 @@ public class ProductRepository {
     }
 
     public static String getProductsFromId24To37() {
-        List<Product> productList = new ArrayList<>();
+        List<ProductDTO> productList = new ArrayList<>();
 
          String sql = "\"SELECT * FROM product WHERE product_id BETWEEN 24 AND 37 ORDER BY product_id ASC";
 
@@ -249,7 +249,7 @@ public class ProductRepository {
                 String gift = rs.getString("gift");
                 double rating = rs.getDouble("rating");
 
-                Product product = new Product(product_id, product_name, image, price, oldPrice, color, description, ram,
+                ProductDTO product = new ProductDTO(product_id, product_name, image, price, oldPrice, color, description, ram,
                         ssd, gift, rating);
 
                 productList.add(product);

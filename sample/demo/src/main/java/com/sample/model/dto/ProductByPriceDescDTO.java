@@ -1,6 +1,6 @@
 package com.sample.model.dto;
 
-public class ProductByPriceAsc {
+public class ProductByPriceDescDTO {
 
     private int product_id;
     private String product_name;
@@ -15,7 +15,7 @@ public class ProductByPriceAsc {
     private double rating;
 
 
-    public ProductByPriceAsc(int product_id, String product_name, String image, int price, int oldPrice, String color, String description, String ram, String ssd, String gift, double rating) {
+    public ProductByPriceDescDTO(int product_id, String product_name, String image, int price, int oldPrice, String color, String description, String ram, String ssd, String gift, double rating) {
         this.product_id = product_id;
         this.product_name = product_name;
         this.image = image;

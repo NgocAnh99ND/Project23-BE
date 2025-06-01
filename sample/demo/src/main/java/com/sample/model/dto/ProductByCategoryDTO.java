@@ -1,10 +1,10 @@
 package com.sample.model.dto;
 
-public class ProductByCategory {
+public class ProductByCategoryDTO {
     private String ma_san_pham;
     private String ten_san_pham;
 
-    public ProductByCategory(String ma_san_pham, String ten_san_pham){
+    public ProductByCategoryDTO(String ma_san_pham, String ten_san_pham){
         this.ma_san_pham = ma_san_pham;
         this.ten_san_pham = ten_san_pham;
     }

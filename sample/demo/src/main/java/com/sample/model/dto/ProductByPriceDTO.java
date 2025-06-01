@@ -1,6 +1,6 @@
 package com.sample.model.dto;
 
-public class ProductByPrice {
+public class ProductByPriceDTO {
     private String id;
     private String ma_phieu_nhap_kho;
     private String ma_san_pham;
@@ -8,7 +8,7 @@ public class ProductByPrice {
     private Integer so_luong;
     private String ten_san_pham;
 
-    public ProductByPrice(String id, String ma_phieu_nhap_kho, String ma_san_pham, Integer gia_nhap, Integer so_luong) {
+    public ProductByPriceDTO(String id, String ma_phieu_nhap_kho, String ma_san_pham, Integer gia_nhap, Integer so_luong) {
         this.id = id;
         this.ma_phieu_nhap_kho = ma_phieu_nhap_kho;
         this.ma_san_pham = ma_san_pham;
@@ -16,7 +16,7 @@ public class ProductByPrice {
         this.so_luong = so_luong;
     }
 
-    public ProductByPrice(String ten_san_pham, String ma_san_pham) {
+    public ProductByPriceDTO(String ten_san_pham, String ma_san_pham) {
         this.ten_san_pham = ten_san_pham;
         this.ma_san_pham = ma_san_pham;
     }
