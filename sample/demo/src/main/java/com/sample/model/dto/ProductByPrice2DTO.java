@@ -20,7 +20,4 @@ public class ProductByPrice2DTO {
     public void setMa_san_pham(String ma_san_pham) {
         this.ma_san_pham = ma_san_pham;
     }
-
-
-
 }

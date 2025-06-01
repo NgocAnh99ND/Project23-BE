@@ -5,8 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.sample.model.dto.DanhMucDTO;
 import com.sample.model.dto.ProductDTO;
 import com.sample.model.dto.ProductByCategoryDTO;
-import com.sample.model.dto.ProductByPriceAscDTO;
-import com.sample.model.dto.ProductByPriceDescDTO;
+import com.sample.model.dto.ProductByPriceDetailDTO;
 import com.sample.utils.Convert;
 
 import java.sql.Connection;
@@ -117,7 +116,7 @@ public class ProductRepository {
     }
 
     public String getProductsSortedByPriceAsc() {
-        List<ProductByPriceAscDTO> getProductsSortedByPriceAscList = new ArrayList<>();
+        List<ProductByPriceDetailDTO> getProductsSortedByPriceAscList = new ArrayList<>();
 
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(
@@ -139,7 +138,7 @@ public class ProductRepository {
                     String gift = rs.getString("gift");
                     double rating = rs.getDouble("rating");
 
-                    ProductByPriceAscDTO productByPriceAsc = new ProductByPriceAscDTO(product_id, product_name, image, price,
+                    ProductByPriceDetailDTO productByPriceAsc = new ProductByPriceDetailDTO(product_id, product_name, image, price,
                             oldPrice, color, description, ram, ssd, gift, rating);
                     getProductsSortedByPriceAscList.add(productByPriceAsc);
                 }
@@ -154,7 +153,7 @@ public class ProductRepository {
     }
 
     public String getProductsSortedByPriceDesc() {
-        List<ProductByPriceDescDTO> getProductsSortedByPriceDescList = new ArrayList<>();
+        List<ProductByPriceDetailDTO> getProductsSortedByPriceDescList = new ArrayList<>();
 
         try (Connection conn = getConnection();
                 PreparedStatement pstmt = conn.prepareStatement(
@@ -176,7 +175,7 @@ public class ProductRepository {
                     String gift = rs.getString("gift");
                     double rating = rs.getDouble("rating");
 
-                    ProductByPriceDescDTO productByPriceDesc = new ProductByPriceDescDTO(product_id, product_name, image,
+                    ProductByPriceDetailDTO productByPriceDesc = new ProductByPriceDetailDTO(product_id, product_name, image,
                             price, oldPrice, color, description, ram, ssd, gift, rating);
                     getProductsSortedByPriceDescList.add(productByPriceDesc);
                 }
