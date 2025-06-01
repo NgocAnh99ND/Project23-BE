@@ -193,9 +193,11 @@ public class ProductQuery {
     public static String getProductsFromId1To23() {
         List<Product> productList = new ArrayList<>();
 
+        String sql = "SELECT * FROM product ORDER BY product_id ASC LIMIT 23 OFFSET 0";
+
         try (Connection conn = getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery("SELECT * FROM product ORDER BY product_id ASC LIMIT 23 OFFSET 0;")) {
+                ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 int product_id = rs.getInt("product_id");
@@ -228,10 +230,11 @@ public class ProductQuery {
     public static String getProductsFromId24To37() {
         List<Product> productList = new ArrayList<>();
 
+         String sql = "\"SELECT * FROM product WHERE product_id BETWEEN 24 AND 37 ORDER BY product_id ASC";
+
         try (Connection conn = getConnection();
                 Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(
-                        "SELECT * FROM product WHERE product_id BETWEEN 24 AND 37 ORDER BY product_id ASC")) {
+                ResultSet rs = stmt.executeQuery(sql)) {
 
             while (rs.next()) {
                 int product_id = rs.getInt("product_id");
