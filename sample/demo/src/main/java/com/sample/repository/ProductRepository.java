@@ -38,7 +38,8 @@ public class ProductRepository {
                 String gift = rs.getString("gift");
                 double rating = rs.getDouble("rating");
 
-                ProductDTO product = new ProductDTO(product_id, product_name, image, price, oldPrice, color, description, ram,
+                ProductDTO product = new ProductDTO(product_id, product_name, image, price, oldPrice, color,
+                        description, ram,
                         ssd, gift, rating);
 
                 productList.add(product);
@@ -130,7 +131,8 @@ public class ProductRepository {
                     String gift = rs.getString("gift");
                     double rating = rs.getDouble("rating");
 
-                    ProductByPriceDetailDTO productByPriceAsc = new ProductByPriceDetailDTO(product_id, product_name, image, price,
+                    ProductByPriceDetailDTO productByPriceAsc = new ProductByPriceDetailDTO(product_id, product_name,
+                            image, price,
                             oldPrice, color, description, ram, ssd, gift, rating);
                     getProductsSortedByPriceAscList.add(productByPriceAsc);
                 }
@@ -167,7 +169,8 @@ public class ProductRepository {
                     String gift = rs.getString("gift");
                     double rating = rs.getDouble("rating");
 
-                    ProductByPriceDetailDTO productByPriceDesc = new ProductByPriceDetailDTO(product_id, product_name, image,
+                    ProductByPriceDetailDTO productByPriceDesc = new ProductByPriceDetailDTO(product_id, product_name,
+                            image,
                             price, oldPrice, color, description, ram, ssd, gift, rating);
                     getProductsSortedByPriceDescList.add(productByPriceDesc);
                 }
@@ -203,7 +206,8 @@ public class ProductRepository {
                 String gift = rs.getString("gift");
                 double rating = rs.getDouble("rating");
 
-                ProductDTO product = new ProductDTO(product_id, product_name, image, price, oldPrice, color, description, ram,
+                ProductDTO product = new ProductDTO(product_id, product_name, image, price, oldPrice, color,
+                        description, ram,
                         ssd, gift, rating);
 
                 productList.add(product);
@@ -221,7 +225,7 @@ public class ProductRepository {
     public static String getProductsFromId24To37() {
         List<ProductDTO> productList = new ArrayList<>();
 
-         String sql = "\"SELECT * FROM product WHERE product_id BETWEEN 24 AND 37 ORDER BY product_id ASC";
+        String sql = "\"SELECT * FROM product WHERE product_id BETWEEN 24 AND 37 ORDER BY product_id ASC";
 
         try (Connection conn = DatabaseConnection.getConnection();
                 Statement stmt = conn.createStatement();
@@ -240,7 +244,8 @@ public class ProductRepository {
                 String gift = rs.getString("gift");
                 double rating = rs.getDouble("rating");
 
-                ProductDTO product = new ProductDTO(product_id, product_name, image, price, oldPrice, color, description, ram,
+                ProductDTO product = new ProductDTO(product_id, product_name, image, price, oldPrice, color,
+                        description, ram,
                         ssd, gift, rating);
 
                 productList.add(product);
