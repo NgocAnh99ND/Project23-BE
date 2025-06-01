@@ -1,4 +1,4 @@
-package com.sample.dto;
+package com.sample.model.dto;
 
 public class ProductByCategory {
     private String ma_san_pham;

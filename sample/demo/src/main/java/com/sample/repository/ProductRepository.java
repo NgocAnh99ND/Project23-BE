@@ -2,11 +2,11 @@ package com.sample.repository;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.sample.dto.DanhMuc;
-import com.sample.dto.Product;
-import com.sample.dto.ProductByCategory;
-import com.sample.dto.ProductByPriceAsc;
-import com.sample.dto.ProductByPriceDesc;
+import com.sample.model.dto.DanhMuc;
+import com.sample.model.dto.Product;
+import com.sample.model.dto.ProductByCategory;
+import com.sample.model.dto.ProductByPriceAsc;
+import com.sample.model.dto.ProductByPriceDesc;
 import com.sample.utils.Convert;
 
 import java.sql.Connection;

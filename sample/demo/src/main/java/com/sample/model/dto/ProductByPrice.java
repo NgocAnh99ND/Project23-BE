@@ -1,4 +1,4 @@
-package com.sample.dto;
+package com.sample.model.dto;
 
 public class ProductByPrice {
     private String id;
