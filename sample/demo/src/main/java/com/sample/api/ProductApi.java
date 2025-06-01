@@ -5,6 +5,7 @@ import com.sun.net.httpserver.*;
 
 import java.io.IOException;
 import java.io.OutputStream;
+
 public class ProductApi {
 
     // Tiện ích: thêm header CORS vào response
@@ -40,7 +41,7 @@ public class ProductApi {
         }
     }
 
-    static class ProductsFromId1To23Handler implements HttpHandler {
+    static class ProductsByRangeHandler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
             if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
                 applyCORS(exchange);
@@ -48,20 +49,7 @@ public class ProductApi {
                 return;
             }
 
-            String productKetqua = ProductRepository.getProductsFromId1To23();
-            sendResponse(exchange, productKetqua, "application/json");
-        }
-    }
-
-    static class ProductsFromId24To37Handler implements HttpHandler {
-        public void handle(HttpExchange exchange) throws IOException {
-            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
-                applyCORS(exchange);
-                exchange.sendResponseHeaders(204, -1);
-                return;
-            }
-
-            String productKetqua = ProductRepository.getProductsFromId24To37();
+            String productKetqua = ProductRepository.getProductsByRange("10", "0");
             sendResponse(exchange, productKetqua, "application/json");
         }
     }

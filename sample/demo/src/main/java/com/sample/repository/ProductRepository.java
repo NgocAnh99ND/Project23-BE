@@ -184,48 +184,14 @@ public class ProductRepository {
         return "khong co ket qua";
     }
 
-    public static String getProductsFromId1To23() {
+    public static String getProductsByRange(String limit, String offset) {
         List<ProductDTO> productList = new ArrayList<>();
 
-        String sql = "SELECT * FROM product ORDER BY product_id ASC LIMIT 23 OFFSET 0";
-
-        try (Connection conn = DatabaseConnection.getConnection();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql)) {
-
-            while (rs.next()) {
-                int product_id = rs.getInt("product_id");
-                String product_name = rs.getString("product_name");
-                String image = rs.getString("image");
-                int price = rs.getInt("price");
-                int oldPrice = rs.getInt("old_price");
-                String color = rs.getString("color");
-                String description = rs.getString("description");
-                String ram = rs.getString("ram");
-                String ssd = rs.getString("ssd");
-                String gift = rs.getString("gift");
-                double rating = rs.getDouble("rating");
-
-                ProductDTO product = new ProductDTO(product_id, product_name, image, price, oldPrice, color,
-                        description, ram,
-                        ssd, gift, rating);
-
-                productList.add(product);
-            }
-
-            return Convert.ObjToString(productList);
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return "khong co ket qua";
-    }
-
-    public static String getProductsFromId24To37() {
-        List<ProductDTO> productList = new ArrayList<>();
-
-        String sql = "\"SELECT * FROM product WHERE product_id BETWEEN 24 AND 37 ORDER BY product_id ASC";
+        String sql = "SELECT * " +
+                "FROM product " +
+                "ORDER BY product_id ASC " +
+                "LIMIT " + limit + " " +
+                "OFFSET " + offset;
 
         try (Connection conn = DatabaseConnection.getConnection();
                 Statement stmt = conn.createStatement();
