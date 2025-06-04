@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ProductRepository {
-    
+
     public static String getAllProducts() {
         List<ProductDTO> productList = new ArrayList<>();
 
@@ -226,4 +226,78 @@ public class ProductRepository {
 
         return "khong co ket qua";
     }
+
+    public static String insertProduct(ProductDTO product) {
+        String sql = "INSERT INTO product (product_id, product_name, image, price, old_price, color, description, ram, ssd, gift, rating) "
+                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, product.getProductId());
+            pstmt.setString(2, product.getProductName());
+            pstmt.setString(3, product.getImage());
+            pstmt.setInt(4, product.getPrice());
+            pstmt.setInt(5, product.getOldPrice());
+            pstmt.setString(6, product.getColor());
+            pstmt.setString(7, product.getDescription());
+            pstmt.setString(8, product.getRam());
+            pstmt.setString(9, product.getSsd());
+            pstmt.setString(10, product.getGift());
+            pstmt.setDouble(11, product.getRating());
+
+            int rows = pstmt.executeUpdate();
+            return rows > 0 ? "Thêm sản phẩm thành công" : "Thêm thất bại";
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Lỗi SQL: " + e.getMessage();
+        }
+    }
+
+    public static String updateProduct(ProductDTO product) {
+        String sql = "UPDATE product SET product_name = ?, image = ?, price = ?, old_price = ?, color = ?, "
+                + "description = ?, ram = ?, ssd = ?, gift = ?, rating = ? WHERE product_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, product.getProductName());
+            pstmt.setString(2, product.getImage());
+            pstmt.setInt(3, product.getPrice());
+            pstmt.setInt(4, product.getOldPrice());
+            pstmt.setString(5, product.getColor());
+            pstmt.setString(6, product.getDescription());
+            pstmt.setString(7, product.getRam());
+            pstmt.setString(8, product.getSsd());
+            pstmt.setString(9, product.getGift());
+            pstmt.setDouble(10, product.getRating());
+            pstmt.setInt(11, product.getProductId());
+
+            int rows = pstmt.executeUpdate();
+            return rows > 0 ? "Cập nhật sản phẩm thành công" : "Không tìm thấy sản phẩm để cập nhật";
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Lỗi SQL: " + e.getMessage();
+        }
+    }
+
+    public static String deleteProduct(int productId) {
+        String sql = "DELETE FROM product WHERE product_id = ?";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, productId);
+
+            int rows = pstmt.executeUpdate();
+            return rows > 0 ? "Xóa sản phẩm thành công" : "Không tìm thấy sản phẩm để xóa";
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return "Lỗi SQL: " + e.getMessage();
+        }
+    }
+
 }

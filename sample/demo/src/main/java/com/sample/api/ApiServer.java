@@ -1,5 +1,6 @@
 package com.sample.api;
 
+import com.sample.api.ProductApi.AllProductsHandler;
 import com.sample.api.ProductApi.ProductsByRangeHandler;
 import com.sample.api.ProductApi.RootHandler;
 import com.sun.net.httpserver.HttpServer;
@@ -13,6 +14,7 @@ public class ApiServer {
 
         server.createContext("/", new RootHandler());
         server.createContext("/products", new ProductsByRangeHandler());
+        server.createContext("/all_products", new AllProductsHandler());
 
         server.setExecutor(null);
         server.start();

@@ -72,4 +72,15 @@ public class ProductApi {
         }
     }
 
+    static class AllProductsHandler implements HttpHandler {
+        public void handle(HttpExchange exchange) throws IOException {
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                applyCORS(exchange);
+                exchange.sendResponseHeaders(204, -1);
+                return;
+            }
+            String allProducts = ProductRepository.getAllProducts();
+            sendResponse(exchange, allProducts, "application/json");
+        }
+    }
 }
