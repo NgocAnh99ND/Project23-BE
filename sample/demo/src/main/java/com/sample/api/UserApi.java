@@ -34,7 +34,7 @@ public class UserApi {
             // Xử lý CORS cho preflight request
             if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
                 applyCORS(exchange);
-                exchange.sendResponseHeaders(204, -1); // No content
+                exchange.sendResponseHeaders(204, -1);
                 return;
             }
 

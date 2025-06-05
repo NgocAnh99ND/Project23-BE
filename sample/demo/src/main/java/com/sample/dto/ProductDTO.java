@@ -1,23 +1,24 @@
 package com.sample.dto;
 
 public class ProductDTO {
-    private int productId;
+    private Integer productId;
     private String productName;
     private String image;
-    private int price;
-    private int oldPrice;
+    private Integer price;
+    private Integer oldPrice;
     private String color;
     private String description;
     private String ram;
     private String ssd;
     private String gift;
-    private double rating;
+    private Double rating;
 
     // Constructors
-    public ProductDTO() {}
+    public ProductDTO() {
+    }
 
-    public ProductDTO(int productId, String productName, String image, int price, int oldPrice,
-                   String color, String description, String ram, String ssd, String gift, double rating) {
+    public ProductDTO(Integer productId, String productName, String image, Integer price, Integer oldPrice,
+            String color, String description, String ram, String ssd, String gift, Double rating) {
         this.productId = productId;
         this.productName = productName;
         this.image = image;
@@ -33,11 +34,11 @@ public class ProductDTO {
 
     // Getters and Setters
 
-    public int getProductId() {
+    public Integer getProductId() {
         return productId;
     }
 
-    public void setProductId(int productId) {
+    public void setProductId(Integer productId) {
         this.productId = productId;
     }
 
@@ -57,19 +58,19 @@ public class ProductDTO {
         this.image = image;
     }
 
-    public int getPrice() {
+    public Integer getPrice() {
         return price;
     }
 
-    public void setPrice(int price) {
+    public void setPrice(Integer price) {
         this.price = price;
     }
 
-    public int getOldPrice() {
+    public Integer getOldPrice() {
         return oldPrice;
     }
 
-    public void setOldPrice(int oldPrice) {
+    public void setOldPrice(Integer oldPrice) {
         this.oldPrice = oldPrice;
     }
 
@@ -113,11 +114,11 @@ public class ProductDTO {
         this.gift = gift;
     }
 
-    public double getRating() {
+    public Double getRating() {
         return rating;
     }
 
-    public void setRating(double rating) {
+    public void setRating(Double rating) {
         this.rating = rating;
     }
 }

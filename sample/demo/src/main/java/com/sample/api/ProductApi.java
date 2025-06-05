@@ -91,13 +91,15 @@ public class ProductApi {
 
     static class InsertProductHandler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {
-            applyCORS(exchange);
+
             if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                applyCORS(exchange);
                 exchange.sendResponseHeaders(204, -1);
                 return;
             }
 
             if (!"POST".equalsIgnoreCase(exchange.getRequestMethod())) {
+                applyCORS(exchange);
                 exchange.sendResponseHeaders(405, -1);
                 return;
             }
@@ -111,8 +113,7 @@ public class ProductApi {
             }
 
             // Parse JSON thành ProductDTO
-            Gson gson = new Gson();
-            ProductDTO product = gson.fromJson(jsonBuilder.toString(), ProductDTO.class);
+            ProductDTO product = Convert.StringToObj(jsonBuilder.toString(), ProductDTO.class);
 
             // Gọi repository để thêm sản phẩm
             String result = ProductRepository.insertProduct(product);
@@ -163,7 +164,7 @@ public class ProductApi {
             os.write(response);
             os.close();
         }
-    }       
+    }
 
     static class DeleteProductHandler implements HttpHandler {
         public void handle(HttpExchange exchange) throws IOException {

@@ -227,24 +227,110 @@ public class ProductRepository {
         return "khong co ket qua";
     }
 
+    // public static String insertProduct(ProductDTO product) {
+    // String sql = "INSERT INTO product (product_id, product_name, image, price,
+    // old_price, color, description, ram, ssd, gift, rating) "
+    // + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+
+    // try (Connection conn = DatabaseConnection.getConnection();
+    // PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+    // pstmt.setInt(1, product.getProductId());
+    // pstmt.setString(2, product.getProductName());
+    // pstmt.setString(3, product.getImage());
+    // pstmt.setInt(4, product.getPrice());
+    // pstmt.setInt(5, product.getOldPrice());
+    // pstmt.setString(6, product.getColor());
+    // pstmt.setString(7, product.getDescription());
+    // pstmt.setString(8, product.getRam());
+    // pstmt.setString(9, product.getSsd());
+    // pstmt.setString(10, product.getGift());
+    // pstmt.setDouble(11, product.getRating());
+
+    // int rows = pstmt.executeUpdate();
+    // return rows > 0 ? "Thêm sản phẩm thành công" : "Thêm thất bại";
+
+    // } catch (SQLException e) {
+    // e.printStackTrace();
+    // return "Lỗi SQL: " + e.getMessage();
+    // }
+    // }
+
     public static String insertProduct(ProductDTO product) {
-        String sql = "INSERT INTO product (product_id, product_name, image, price, old_price, color, description, ram, ssd, gift, rating) "
-                + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        StringBuilder sql = new StringBuilder("INSERT INTO product (");
+        StringBuilder placeholders = new StringBuilder("VALUES (");
+        List<Object> values = new ArrayList<>();
+
+        if (product.getProductId() != null) {
+            sql.append("product_id, ");
+            placeholders.append("?, ");
+            values.add(product.getProductId());
+        }
+        if (product.getProductName() != null) {
+            sql.append("product_name, ");
+            placeholders.append("?, ");
+            values.add(product.getProductName());
+        }
+        if (product.getImage() != null) {
+            sql.append("image, ");
+            placeholders.append("?, ");
+            values.add(product.getImage());
+        }
+        if (product.getPrice() != null) {
+            sql.append("price, ");
+            placeholders.append("?, ");
+            values.add(product.getPrice());
+        }
+        if (product.getOldPrice() != null) {
+            sql.append("old_price, ");
+            placeholders.append("?, ");
+            values.add(product.getOldPrice());
+        }
+        if (product.getColor() != null) {
+            sql.append("color, ");
+            placeholders.append("?, ");
+            values.add(product.getColor());
+        }
+        if (product.getDescription() != null) {
+            sql.append("description, ");
+            placeholders.append("?, ");
+            values.add(product.getDescription());
+        }
+        if (product.getRam() != null) {
+            sql.append("ram, ");
+            placeholders.append("?, ");
+            values.add(product.getRam());
+        }
+        if (product.getSsd() != null) {
+            sql.append("ssd, ");
+            placeholders.append("?, ");
+            values.add(product.getSsd());
+        }
+        if (product.getGift() != null) {
+            sql.append("gift, ");
+            placeholders.append("?, ");
+            values.add(product.getGift());
+        }
+        if (product.getRating() != null) {
+            sql.append("rating, ");
+            placeholders.append("?, ");
+            values.add(product.getRating());
+        }
+
+        // Xoá dấu ", " ở cuối
+        sql.setLength(sql.length() - 2);
+        placeholders.setLength(placeholders.length() - 2);
+
+        sql.append(") ");
+        placeholders.append(")");
+        sql.append(placeholders);
 
         try (Connection conn = DatabaseConnection.getConnection();
-                PreparedStatement pstmt = conn.prepareStatement(sql)) {
+                PreparedStatement pstmt = conn.prepareStatement(sql.toString())) {
 
-            pstmt.setInt(1, product.getProductId());
-            pstmt.setString(2, product.getProductName());
-            pstmt.setString(3, product.getImage());
-            pstmt.setInt(4, product.getPrice());
-            pstmt.setInt(5, product.getOldPrice());
-            pstmt.setString(6, product.getColor());
-            pstmt.setString(7, product.getDescription());
-            pstmt.setString(8, product.getRam());
-            pstmt.setString(9, product.getSsd());
-            pstmt.setString(10, product.getGift());
-            pstmt.setDouble(11, product.getRating());
+            for (int i = 0; i < values.size(); i++) {
+                pstmt.setObject(i + 1, values.get(i));
+            }
 
             int rows = pstmt.executeUpdate();
             return rows > 0 ? "Thêm sản phẩm thành công" : "Thêm thất bại";

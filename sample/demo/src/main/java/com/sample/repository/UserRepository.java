@@ -39,4 +39,8 @@ public class UserRepository {
         return "khong co ket qua";
     }
 
+    // public static void main(String[] args) {
+    //     getAllUsers();
+    //     System.out.println(getAllUsers());
+    // }
 }
