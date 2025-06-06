@@ -177,11 +177,10 @@ public class ProductApi {
 
             // Chỉ cho phép phương thức DELETE
             if (!"DELETE".equalsIgnoreCase(exchange.getRequestMethod())) {
+                applyCORS(exchange);
                 exchange.sendResponseHeaders(405, -1); // Method Not Allowed
                 return;
             }
-
-            applyCORS(exchange);
 
             URI requestURI = exchange.getRequestURI();
             String query = requestURI.getQuery(); // ví dụ: id=10
