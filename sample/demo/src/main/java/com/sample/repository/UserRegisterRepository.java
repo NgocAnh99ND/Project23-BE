@@ -50,7 +50,7 @@ public class UserRegisterRepository {
     // Thêm bên dưới class UserRegisterRepository
     public static void main(String[] args) {
         // Tạo user mẫu
-        UserRegisterDTO user = new UserRegisterDTO("testuser", "test123");
+        UserRegisterDTO user = new UserRegisterDTO("user1", "test123");
 
         // Kiểm tra tồn tại
         if (usernameExists(user.getUsername())) {
@@ -63,6 +63,5 @@ public class UserRegisterRepository {
                 System.out.println("Đăng ký thất bại!");
             }
         }
-
     }
 }

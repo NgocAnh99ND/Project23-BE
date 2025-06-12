@@ -81,8 +81,6 @@ public class UserRegisterApi {
             } else {
                 sendResponse(exchange, "{\"message\":\"Lỗi khi lưu người dùng\"}", "application/json");
             }
-
         }
-
     }
 }

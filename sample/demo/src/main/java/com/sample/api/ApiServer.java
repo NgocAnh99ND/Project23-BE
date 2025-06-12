@@ -24,6 +24,7 @@ public class ApiServer {
         server.createContext("/delete_product", new DeleteProductHandler());
         server.createContext("/update_product", new UpdateProductHandler());
         server.createContext("/user", new AllUsersHandler());
+        server.createContext("/new_user", new AllUsersHandler());
         server.createContext("/register", new UserRegisterHandler());
 
         server.setExecutor(null);
