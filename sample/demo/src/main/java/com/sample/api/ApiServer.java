@@ -7,6 +7,7 @@ import com.sample.api.ProductApi.ProductsByRangeHandler;
 import com.sample.api.ProductApi.RootHandler;
 import com.sample.api.ProductApi.UpdateProductHandler;
 import com.sample.api.UserApi.AllUsersHandler;
+import com.sample.api.UserRegisterApi.UserRegisterHandler;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class ApiServer {
         server.createContext("/delete_product", new DeleteProductHandler());
         server.createContext("/update_product", new UpdateProductHandler());
         server.createContext("/user", new AllUsersHandler());
+        server.createContext("/register", new UserRegisterHandler());
 
         server.setExecutor(null);
         server.start();
