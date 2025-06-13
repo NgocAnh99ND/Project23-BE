@@ -1,5 +1,6 @@
 package com.sample.api;
 
+import com.sample.api.NewUserApi.NewUsersHandler;
 import com.sample.api.ProductApi.AllProductsHandler;
 import com.sample.api.ProductApi.DeleteProductHandler;
 import com.sample.api.ProductApi.InsertProductHandler;
@@ -24,7 +25,7 @@ public class ApiServer {
         server.createContext("/delete_product", new DeleteProductHandler());
         server.createContext("/update_product", new UpdateProductHandler());
         server.createContext("/user", new AllUsersHandler());
-        server.createContext("/new_user", new AllUsersHandler());
+        server.createContext("/new_user", new NewUsersHandler());
         server.createContext("/register", new UserRegisterHandler());
 
         server.setExecutor(null);
