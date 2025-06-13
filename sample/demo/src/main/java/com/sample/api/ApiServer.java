@@ -4,6 +4,7 @@ import com.sample.api.NewUserApi.NewUsersHandler;
 import com.sample.api.ProductApi.AllProductsHandler;
 import com.sample.api.ProductApi.DeleteProductHandler;
 import com.sample.api.ProductApi.InsertProductHandler;
+import com.sample.api.ProductApi.ProductDetailHandler;
 import com.sample.api.ProductApi.ProductsByRangeHandler;
 import com.sample.api.ProductApi.RootHandler;
 import com.sample.api.ProductApi.UpdateProductHandler;
@@ -21,6 +22,7 @@ public class ApiServer {
         server.createContext("/", new RootHandler());
         server.createContext("/products", new ProductsByRangeHandler());
         server.createContext("/all_products", new AllProductsHandler());
+        server.createContext("/product_detail", new ProductDetailHandler());
         server.createContext("/add_product", new InsertProductHandler());
         server.createContext("/delete_product", new DeleteProductHandler());
         server.createContext("/update_product", new UpdateProductHandler());

@@ -5,6 +5,7 @@ import com.sample.dto.ProductDTO;
 import com.sample.repository.ProductRepository;
 import com.sample.util.Convert;
 import com.sample.util.Param;
+import com.sample.util.QueryToMap;
 import com.sun.net.httpserver.*;
 
 import java.io.BufferedReader;
@@ -12,7 +13,9 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URI;
+
 import java.util.List;
+import java.util.Map;
 
 public class ProductApi {
 
@@ -86,6 +89,45 @@ public class ProductApi {
             }
             String allProducts = ProductRepository.getAllProducts();
             sendResponse(exchange, allProducts, "application/json");
+        }
+    }
+
+    static class ProductDetailHandler implements HttpHandler {
+        public void handle(HttpExchange exchange) throws IOException {
+            if ("OPTIONS".equalsIgnoreCase(exchange.getRequestMethod())) {
+                applyCORS(exchange);
+                exchange.sendResponseHeaders(204, -1);
+                return;
+            }
+
+            if (!"GET".equalsIgnoreCase(exchange.getRequestMethod())) {
+                applyCORS(exchange);
+                exchange.sendResponseHeaders(405, -1); // Method Not Allowed
+                return;
+            }
+
+            String query = exchange.getRequestURI().getQuery(); // ví dụ: "id=123"
+            Map<String, String> params = QueryToMap.queryToMap(query);
+            String idParam = params.get("id");
+
+            if (idParam == null) {
+                exchange.sendResponseHeaders(400, -1); // Bad Request nếu thiếu id
+                return;
+            }
+
+            try {
+                int productId = Integer.parseInt(idParam);
+                String productJson = ProductRepository.getDetailProducts(productId); // JSON hoặc "null"
+
+                if ("null".equals(productJson)) {
+                    exchange.sendResponseHeaders(404, -1); // Not Found
+                } else {
+                    sendResponse(exchange, productJson, "application/json");
+                }
+
+            } catch (NumberFormatException e) {
+                exchange.sendResponseHeaders(400, -1); // Bad Request nếu id không hợp lệ
+            }
         }
     }
 

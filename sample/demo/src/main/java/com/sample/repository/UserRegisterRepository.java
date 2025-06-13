@@ -47,10 +47,12 @@ public class UserRegisterRepository {
         }
     }
 
-    // Thêm bên dưới class UserRegisterRepository
+
+
+    
     public static void main(String[] args) {
         // Tạo user mẫu
-        UserRegisterDTO user = new UserRegisterDTO("user1", "test123");
+        UserRegisterDTO user = new UserRegisterDTO("user2", "test2");
 
         // Kiểm tra tồn tại
         if (usernameExists(user.getUsername())) {

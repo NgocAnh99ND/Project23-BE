@@ -386,4 +386,45 @@ public class ProductRepository {
         }
     }
 
+    public static String getDetailProducts(int productId) {
+        List<ProductDTO> productDetailList = new ArrayList<>();
+        String sql = "SELECT * FROM product WHERE product_id =" + productId;
+
+        try (Connection conn = DatabaseConnection.getConnection();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+
+            while (rs.next()) {
+                int product_id = rs.getInt("product_id");
+                String product_name = rs.getString("product_name");
+                String image = rs.getString("image");
+                int price = rs.getInt("price");
+                int oldPrice = rs.getInt("old_price");
+                String color = rs.getString("color");
+                String description = rs.getString("description");
+                String ram = rs.getString("ram");
+                String ssd = rs.getString("ssd");
+                String gift = rs.getString("gift");
+                double rating = rs.getDouble("rating");
+
+                ProductDTO productDetail = new ProductDTO(product_id, product_name, image, price, oldPrice, color,
+                        description, ram,
+                        ssd, gift, rating);
+
+                productDetailList.add(productDetail);
+            }
+
+            return Convert.ObjToString(productDetailList);
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return "khong co ket qua";
+    }
+
+    // public static void main(String[] args) {
+    //     String x = getDetailProducts(5);
+    //     System.out.println(x);
+    // }
 }
